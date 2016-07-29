@@ -1,104 +1,117 @@
 # gulp-help-doc
 [![Build Status](https://travis-ci.org/Mikhus/gulp-help-doc.svg?branch=master)](https://travis-ci.org/Mikhus/gulp-help-doc)
 
-This plugin allows to document gulp tasks with jsDoc-like comments
-which are produces pretty printed tasks usage information.
+Self-documented gulp tasks with pretty printable usage information in command-line.
 
-## How it works?
+## Install
 
-First of all it is required to define usage task, for example, in the
-`gulpfile.js`:
+    $ npm install gulp-help-doc
+
+## Using
+
+Example `gulpfile.js`
 
 ```javascript
-const gulp = require('gulp');
+var gulp = require('gulp');
+var usage = require('gulp-help-doc');
+var args = require('yargs').argv;
 
 /**
  * This simply defines help task which would produce usage
- * display. Now we can simply run `gulp help`
+ * display for this gulpfile. Simple run `gulp help` to see how it works.
+ * NOTE: this task will not appear in a usage output as far as it is not
+ * marked with the @task tag.
  */
-gulp.task('help', () => require('gulp-help-doc')(gulp));
+gulp.task('help', function() { return usage(gulp); });
 
 
 /**
- * We may also link usage as default gulp task, now each type
- * simply `gulp` called from comman-line we will see its usage info.
+ * We may also link usage as default gulp task:
  */
 gulp.task('default', ['help']);
+
+
+/**
+ * This task will appear in usage output, because it is marked with the
+ * proper @task tag. Current information you're reading will be the task
+ * description.
+ *
+ * @task {demo}
+ */
+ gulp.task('demo', function() {});
+
+/**
+ * Another task, which could handle some command-line argulents, for example,
+ * by using 'yargs' module. It is possible to describe expected by a task
+ * arguments using @arg tags. It is possible to specify as much argument
+ * tags as required by the job done within this task. For example here we 
+ * describe three arguments:
+ *
+ * @task {test}
+ * @arg {argOne} first argument description which will appear in usage output
+ * @arg {argTwo} second argument dsescription
+ * @arg {argThree} third argument description
+ */
+gulp.task('test', ['demo'], function() {
+    var one = args.argOne;
+    var thwo = args.argTwo;
+    var three = args.argThree;
+
+    // ... do something taking args into account ...
+
+});
 ```
 
-The code above is just defines a way to call for usage information and
-give the power of docblock comments to define what will appear in the
-usage info.
+Put this example gulpfile in your project's root directory and run the
+following commands to install dependencies:
 
-Actually this plugin adds two dockblock tags for your use:
+    $ npm install yargs gulp gulp-help-doc
+
+Now you can simply run
+
+    $ gulp help
+
+or even more simply
+
+    $ gulp
+
+and it will print you the proper usage information. It should look like:
+
+```
+Usage: gulp [task] [options]
+Tasks:
+    demo            This task will appear in usage output, because it is marked with 
+                    the proper @task tag. Current information you're reading will 
+                    be the task description.
+
+    test            Another task, which could handle some command-line argulents, 
+                    for example, by using 'yargs' module. It is possible to describe 
+                    expected by a task arguments using @arg tags. It is possible 
+                    to specify as much argument tags as required by the job done 
+                    within this task. For example here we describe three arguments:
+     --argOne       first argument description which will appear in usage output
+     --argTwo       second argument dsescription
+     --argThree     third argument description
+                    Depends: ["demo"]
+```
+
+## How it works?
+
+This plugin enables you to use jsDoc-like tags to document your tasks
+and make tose task documentation availabe from comman-line as usage
+information.
 
   * `@task {task_name}`
   * `@arg {arg_name} arg_description`
 
 Task description could be written in a free form before the `@task` tag
-declaration. For example. 
+declaration.
 
-`@task` tag is required to mark the gulp task as the one which should
-appear in a usage information, so if it is required to hide task from
-usage info it is enough just to omit writing the tag for it.
-
-Here a simple example of declaring a test task which runs mocha tests
-for the current project and declaring usage information for it (and
-documenting the task code as well at the same time):
-
-```javascript
-/**
- * This is just demo task. What is written here is a task 
- * description. It can be multiline and written in a fre-form.
- * All is required to have this description before @task docblock
- * tag.
- *
- * @task {demo}
- */
- gulp.task('demo', () => {});
-
-/**
- * This task runs the tests. This task accept arguments.
- *
- * @task {test}
- * @arg {app} if specified will run tests only for specified app
- */
-gulp.task('test', () => {
-    let app = require('yargs').argv.app;
-    let src = './test' + (app ? '/' + app : '');
-
-    gulp.src(src).pipe(require('gulp-mocha')());
-});
-```
-
-As a result when running `gulp help` command from command-line it will
-produce output like this:
-
-    $  gulp help
-      [13:25:25] Using gulpfile /path/to/gulpfile.js
-      [13:25:25] Starting 'help'...
-      Usage: gulp [task] [options]
-      Tasks:
-          demo            This is just demo task. What is written here is a task description. 
-                          It can be multiline and written in a fre-form. All is required 
-                          to have this description before @task docblock tag.
-      
-          test            This task runs the tests
-           --app          if specified will run tests only for specified app
-      
-      [13:25:25] Finished 'help' after 4.4 ms
-
-As may be seen from the output tasks `default` and `help` are not seen
-in the usage info output because them was not marked with the `@task`
-tag.
+If `@task` tag is omitted then the task will not appear in usage call.
 
 ## API
 
-```javascript
-let help = require('gulp-help-doc');
-```
-
-This declaration defines a help function which takes 2 arguments:
+This module provides you with usage() function which takes 2 arguments:
 
   * **gulp** - the instance of gulp, usage info for which must be printed
   * **options** - optional parameter, which allows to tune some printing
@@ -119,12 +132,14 @@ Options are:
 Example of custom configuration: 
 
 ```javascript
-const help = require('gulp-help-doc');
+const usage = require('gulp-help-doc');
 const gutil = require('gulp-util');
 
-gulp.task('help', () => help(gulp, {
-    lineWidth: 120,
-    keysColumnWidth: 30,
-    logger: gutil
-}));
+gulp.task('help', function() {
+    return usage(gulp, {
+        lineWidth: 120,
+        keysColumnWidth: 30,
+        logger: gutil
+    });
+});
 ```
