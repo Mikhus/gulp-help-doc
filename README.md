@@ -1,4 +1,5 @@
 # gulp-help-doc
+[![Build Status](https://travis-ci.org/Mikhus/gulp-help-doc.svg?branch=master)](https://travis-ci.org/Mikhus/gulp-help-doc)
 
 This plugin allows to document gulp tasks with jsDoc-like comments
 which are produces pretty printed tasks usage information.
