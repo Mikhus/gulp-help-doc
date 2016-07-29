@@ -143,3 +143,7 @@ gulp.task('help', function() {
     });
 });
 ```
+
+## License
+
+[MIT](https://raw.githubusercontent.com/Mikhus/gulp-help-doc/master/LICENSE)
