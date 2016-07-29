@@ -9,21 +9,23 @@ which are produces pretty printed tasks usage information.
 First of all it is required to define usage task, for example, in the
 `gulpfile.js`:
 
-    const gulp = require('gulp');
-    
-    /**
-     * This simply defines help task which would produce usage
-     * display. Now we can simply run `gulp help`
-     */
-    gulp.task('help', () => require('gulp-help-doc')(gulp));
-    
-    
-    /**
-     * We may also link usage as default gulp task, now each type
-     * simply `gulp` called from comman-line we will see its usage info.
-     */
-    gulp.task('default', ['help']);
-    
+```javascript
+const gulp = require('gulp');
+
+/**
+ * This simply defines help task which would produce usage
+ * display. Now we can simply run `gulp help`
+ */
+gulp.task('help', () => require('gulp-help-doc')(gulp));
+
+
+/**
+ * We may also link usage as default gulp task, now each type
+ * simply `gulp` called from comman-line we will see its usage info.
+ */
+gulp.task('default', ['help']);
+```
+
 The code above is just defines a way to call for usage information and
 give the power of docblock comments to define what will appear in the
 usage info.
@@ -44,28 +46,30 @@ Here a simple example of declaring a test task which runs mocha tests
 for the current project and declaring usage information for it (and
 documenting the task code as well at the same time):
 
-    /**
-     * This is just demo task. What is written here is a task 
-     * description. It can be multiline and written in a fre-form.
-     * All is required to have this description before @task docblock
-     * tag.
-     *
-     * @task {demo}
-     */
-     gulp.task('demo', () => {});
+```javascript
+/**
+ * This is just demo task. What is written here is a task 
+ * description. It can be multiline and written in a fre-form.
+ * All is required to have this description before @task docblock
+ * tag.
+ *
+ * @task {demo}
+ */
+ gulp.task('demo', () => {});
 
-    /**
-     * This task runs the tests. This task accept arguments.
-     *
-     * @task {test}
-     * @arg {app} if specified will run tests only for specified app
-     */
-    gulp.task('test', () => {
-        let app = require('yargs').argv.app;
-        let src = './test' + (app ? '/' + app : '');
+/**
+ * This task runs the tests. This task accept arguments.
+ *
+ * @task {test}
+ * @arg {app} if specified will run tests only for specified app
+ */
+gulp.task('test', () => {
+    let app = require('yargs').argv.app;
+    let src = './test' + (app ? '/' + app : '');
 
-        gulp.src(src).pipe(require('gulp-mocha')());
-    });
+    gulp.src(src).pipe(require('gulp-mocha')());
+});
+```
 
 As a result when running `gulp help` command from command-line it will
 produce output like this:
@@ -90,7 +94,9 @@ tag.
 
 ## API
 
-    let help = require('gulp-help-doc');
+```javascript
+let help = require('gulp-help-doc');
+```
 
 This declaration defines a help function which takes 2 arguments:
 
@@ -112,11 +118,13 @@ Options are:
 
 Example of custom configuration: 
 
-    const help = require('gulp-help-doc');
-    const gutil = require('gulp-util');
+```javascript
+const help = require('gulp-help-doc');
+const gutil = require('gulp-util');
 
-    gulp.task('help', () => help(gulp, {
-        lineWidth: 120,
-        keysColumnWidth: 30,
-        logger: gutil
-    }));
+gulp.task('help', () => help(gulp, {
+    lineWidth: 120,
+    keysColumnWidth: 30,
+    logger: gutil
+}));
+```
