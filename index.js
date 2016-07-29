@@ -8,6 +8,10 @@
 require('./lib/string');
 require('./lib/object');
 
+if (typeof Promise === 'undefined') {
+    var Promise = require('es6-promise-polyfill');
+}
+
 // load modules
 var fs = require('fs');
 var chalk = require('chalk');
@@ -16,16 +20,20 @@ var reflection = {};
 var gulpfile = 'gulpfile.js';
 
 /**
- * Default options
- *
- * @type {{
+ * @typedef {{
  *     lineWidth: number,
  *     keysColumnWidth: number,
  *     padding: number,
  *     logger: {
  *        log: function
  *     }
- * }} OPTIONS
+ * }} ConfigOptions
+ */
+
+/**
+ * Default options
+ *
+ * @type {ConfigOptions} OPTIONS
  */
 var OPTIONS = {
     lineWidth: 80,
@@ -33,10 +41,6 @@ var OPTIONS = {
     padding: 4,
     logger: console
 };
-
-if (typeof Promise === 'undefined') {
-    var Promise = require('es6-promise-polyfill');
-}
 
 /**
  * @external Gulp
@@ -208,17 +212,10 @@ function print() {
  * <caption>Typical usage:</caption>
  *  var gulp = require('gulp');
  *
- *  gulp.task('help', => require('./path/to/gulp-help')(gulp));
+ *  gulp.task('help', => require('gulp-help-doc')(gulp));
  *
  * @param {Gulp} gulp - gulp instance to analyze
- * @param {{
- *     lineWidth: number,
- *     keysColumnWidth: number,
- *     padding: number,
- *     logger: {
- *        log: function
- *     }
- * }} [options]
+ * @param {ConfigOptions} [options]
  * @returns {Promise}
  * @access public
  */
