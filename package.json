@@ -4,7 +4,7 @@
   "description": "Gulp available tasks usage information based on jsdoc-like notations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,10 @@
   "dependencies": {
     "chalk": "^1.1.3",
     "es6-promise": "~3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "mocha": "^2.5.3"
   }
 }

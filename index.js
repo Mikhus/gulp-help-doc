@@ -16,8 +16,12 @@ if (typeof Promise === 'undefined') {
 var fs = require('fs');
 var chalk = require('chalk');
 
+/**
+ * Gulpfile reflection metadata
+ *
+ * @access private
+ */
 var reflection = {};
-var gulpfile = 'gulpfile.js';
 
 /**
  * @typedef {{
@@ -26,7 +30,8 @@ var gulpfile = 'gulpfile.js';
  *     padding: number,
  *     logger: {
  *        log: function
- *     }
+ *     },
+ *     gulpfile: 'gulpfile.js'
  * }} ConfigOptions
  */
 
@@ -39,7 +44,8 @@ var OPTIONS = {
     lineWidth: 80,
     keysColumnWidth: 20,
     padding: 4,
-    logger: console
+    logger: console,
+    gulpfile: 'gulpfile.js'
 };
 
 /**
@@ -55,7 +61,7 @@ var OPTIONS = {
  * @access private
  */
 function build(gulp) {
-    var source = fs.readFileSync('./' + gulpfile).toString();
+    var source = fs.readFileSync('./' + OPTIONS.gulpfile).toString();
     var rxDoc = '\\/\\*\\*\\r?\n(((?!\\*\\/)[\\s\\S])*?)' +
         '@task\\s+\\{(.*)?\\}((?!\\*\\/)[\\s\\S])*?\\*\\/';
     var rxArgs = '@arg\\s+\\{(.*?)\\}(.*?)\\r?\\n';
@@ -200,7 +206,6 @@ function print() {
         OPTIONS.logger.log('');
     });
 }
-
 
 /**
  * Prints usage help information for the given gulp
