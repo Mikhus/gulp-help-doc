@@ -9,7 +9,7 @@ require('./lib/string');
 require('./lib/object');
 
 if (typeof Promise === 'undefined') {
-    var Promise = require('es6-promise-polyfill');
+    var Promise = require('es6-promise').Promise;
 }
 
 // load modules
