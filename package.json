@@ -1,0 +1,28 @@
+{
+  "name": "gulp-help-doc",
+  "version": "1.0.0",
+  "description": "Gulp available tasks usage information based on jsdoc-like notations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mikhus/gulp-help-doc"
+  },
+  "keywords": [
+    "gulp",
+    "help",
+    "jsdoc",
+    "docblock"
+  ],
+  "author": "Mykhailo Stadnyk <mikhus@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mikhus/gulp-help-doc/issues"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "es6-promise-polyfill": "^1.2.0"
+  }
+}
