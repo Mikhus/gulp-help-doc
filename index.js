@@ -45,7 +45,9 @@ var OPTIONS = {
     keysColumnWidth: 20,
     padding: 4,
     logger: console,
-    gulpfile: 'gulpfile.js'
+    gulpfile: fs.existsSync('gulpfile.ts') ?
+        'gulpfile.ts' :
+        'gulpfile.js'
 };
 
 /**

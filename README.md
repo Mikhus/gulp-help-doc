@@ -98,7 +98,7 @@ Tasks:
 ## How it works?
 
 This plugin enables you to use jsDoc-like tags to document your tasks
-and make tose task documentation availabe from comman-line as usage
+and make those task documentation availabe from command-line as usage
 information.
 
   * `@task {task_name}`
@@ -121,13 +121,11 @@ Options are:
 
   * **lineWidth** - max line width for the printed output lines (by default
     is 80 characters long)
-  * **keysColumnWidth** - max width of the column width tasks or args
+  * **keysColumnWidth** - max width of the column width tasks/args
     names (by default is 20 characters long)
   * **padding** - number of empty characters for left-padding of the output
-  * **logger** - printing engine (by default is console). You may change
-    it, for example, to gulp-util or some other printing device. It is
-    expected that logger will have 'logger.log()' function defined which
-    will do output.
+  * **logger** - printing engine (by default is console). May be changed
+    to gulp-util or some other printing device if required.
 
 Example of custom configuration: 
 
