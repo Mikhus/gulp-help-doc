@@ -1,5 +1,5 @@
 # gulp-help-doc
-[![Build Status](https://travis-ci.org/Mikhus/gulp-help-doc.svg?branch=master)](https://travis-ci.org/Mikhus/gulp-help-doc)
+[![Build Status](https://travis-ci.org/Mikhus/gulp-help-doc.svg?branch=master)](https://travis-ci.org/Mikhus/gulp-help-doc)  [![NPM License](https://img.shields.io/npm/l/gulp-help-doc.svg)](https://raw.githubusercontent.com/Mikhus/gulp-help-doc/master/LICENSE)
 
 Self-documented gulp tasks with pretty printable usage information in command-line.
 
