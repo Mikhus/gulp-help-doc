@@ -17,6 +17,11 @@ var fs = require('fs');
 var chalk = require('chalk');
 
 /**
+ * @external Gulp
+ * @see {@link https://github.com/gulpjs/gulp/blob/master/docs/API.md}
+ */
+
+/**
  * Gulpfile reflection metadata
  *
  * @access private
@@ -50,10 +55,45 @@ var OPTIONS = {
         'gulpfile.js'
 };
 
-/**
- * @external Gulp
- * @see {@link https://github.com/gulpjs/gulp/blob/master/docs/API.md}
- */
+function rdeps(nodes) {
+    var deps = [];
+
+    if (!nodes.length) return deps;
+
+    nodes.forEach(function(node) {
+        if (!node.branch) {
+            deps.push(node.label);
+        }
+
+        deps = deps.concat(rdeps(node.nodes));
+    });
+
+    return deps.reduce(function(p, c) {
+        if (p.indexOf(c) < 0) p.push(c);
+        return p;
+    }, []);
+}
+
+function gulpTasks(gulp) {
+    if (!gulp.tree) {
+        // old gulp
+        return gulp.tasks;
+    }
+
+
+    // v4
+    var nodes = gulp.tree({ deep: true }).nodes;
+    var tasks = {};
+
+    nodes.forEach(function(node) {
+        tasks[node.label] = {
+            name: node.label,
+            dep: rdeps(node.nodes)
+        };
+    });
+
+    return tasks;
+}
 
 /**
  * Analyzes given gulp instance and build internal cache
@@ -72,12 +112,13 @@ function build(gulp) {
     var globalRxArgs = new RegExp(rxArgs, 'g');
     var localRxArgs = new RegExp(rxArgs);
     var jsDoc  = source.match(globalRxDoc);
+    var tasks = gulpTasks(gulp);
 
-    Object.keys(gulp.tasks).forEach(function (task) {
+    Object.keys(tasks).forEach(function (task) {
         reflection[task] = {
-            name: gulp.tasks[task].name,
+            name: tasks[task].name,
             desc: '',
-            dep: gulp.tasks[task].dep
+            dep: tasks[task].dep
         };
     });
 
