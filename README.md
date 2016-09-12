@@ -3,6 +3,17 @@
 
 Self-documented gulp tasks with pretty printable usage information in command-line.
 
+<!-- toc -->
+
+- [Install](#install)
+- [Using](#using)
+- [How it works?](#how-it-works)
+- [Restrictions](#restrictions)
+- [API](#api)
+- [License](#license)
+
+<!-- tocstop -->
+
 ## Install
 
     $ npm install gulp-help-doc
@@ -108,6 +119,12 @@ Task description could be written in a free form before the `@task` tag
 declaration.
 
 If `@task` tag is omitted then the task will not appear in usage call.
+
+## Restrictions
+
+When using TypeScript version of gulpfile it does not support task 
+doc definitions outside of main `gulpfile.ts`, so it is recommended to 
+describe with docs all tasks in a main gulpfile.
 
 ## API
 

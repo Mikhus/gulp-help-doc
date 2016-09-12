@@ -36,7 +36,7 @@ var reflection = {};
  *     logger: {
  *        log: function
  *     },
- *     gulpfile: 'gulpfile.js'
+ *     isTypescript: boolean
  * }} ConfigOptions
  */
 
@@ -50,9 +50,7 @@ var OPTIONS = {
     keysColumnWidth: 20,
     padding: 4,
     logger: console,
-    gulpfile: fs.existsSync('gulpfile.ts') ?
-        'gulpfile.ts' :
-        'gulpfile.js'
+    isTypescript: fs.existsSync('gulpfile.ts')
 };
 
 function rdeps(nodes) {
@@ -103,7 +101,17 @@ function gulpTasks(gulp) {
  * @access private
  */
 function build(gulp) {
-    var source = fs.readFileSync('./' + OPTIONS.gulpfile).toString();
+    // make sure we don't loose anything from required files
+    // @see https://github.com/Mikhus/gulp-help-doc/issues/2
+    // currently this is not supported for typescript
+
+    var source = OPTIONS.isTypescript ?
+        fs.readFileSync('gulpfile.ts').toString() :
+        Object.keys(require.cache || {'gulpfile.js': ''}).map(function(file) {
+            if (!/node_modules|\.json$/.test(file)) {
+                return fs.readFileSync(file).toString() + '\n';
+            }
+        }).join('');
     var rxDoc = '\\/\\*\\*\\r?\n(((?!\\*\\/)[\\s\\S])*?)' +
         '@task\\s+\\{(.*)?\\}((?!\\*\\/)[\\s\\S])*?\\*\\/';
     var rxArgs = '@arg\\s+\\{(.*?)\\}(.*?)\\r?\\n';

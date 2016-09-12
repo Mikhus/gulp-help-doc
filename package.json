@@ -1,10 +1,11 @@
 {
   "name": "gulp-help-doc",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Gulp available tasks usage information based on jsdoc-like notations",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "toc": "./node_modules/.bin/markdown-toc -i README.md"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
+    "markdown-toc": "^0.12.16",
     "mocha": "^2.5.3"
   }
 }
