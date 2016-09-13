@@ -50,7 +50,8 @@ var OPTIONS = {
     keysColumnWidth: 20,
     padding: 4,
     logger: console,
-    isTypescript: fs.existsSync('gulpfile.ts')
+    isTypescript: fs.existsSync('gulpfile.ts'),
+    displayDependencies: true
 };
 
 function rdeps(nodes) {
@@ -260,11 +261,13 @@ function print() {
             }
         });
 
-        (deps.length) && (OPTIONS.logger.log(
-            ' '.repeat(OPTIONS.keysColumnWidth) +
-            chalk.bold.gray('Depends: ') +
-            chalk.grey(JSON.stringify(deps))
-        ));
+        if (OPTIONS.displayDependencies && deps.length) {
+            OPTIONS.logger.log(
+                ' '.repeat(OPTIONS.keysColumnWidth) +
+                chalk.bold.gray('Depends: ') +
+                chalk.grey(JSON.stringify(deps))
+            );
+        }
 
         OPTIONS.logger.log('');
     });

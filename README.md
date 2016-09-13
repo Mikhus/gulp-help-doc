@@ -149,6 +149,8 @@ Options are:
   * **padding** - number of empty characters for left-padding of the output
   * **logger** - printing engine (by default is console). May be changed
     to gulp-util or some other printing device if required.
+  * **displayDependencies** - if set to `true` (default), prints the task
+    dependencies below its help description
 
 Example of custom configuration: 
 
