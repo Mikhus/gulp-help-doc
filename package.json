@@ -1,6 +1,6 @@
 {
   "name": "gulp-help-doc",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Gulp available tasks usage information based on jsdoc-like notations",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,12 @@
     "docblock"
   ],
   "author": "Mykhailo Stadnyk <mikhus@gmail.com>",
+  "contributors": [
+    {
+      "name": "Wojciech Frącz",
+      "url": "https://github.com/fracz"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Mikhus/gulp-help-doc/issues"
