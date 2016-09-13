@@ -50,7 +50,8 @@ var OPTIONS = {
     keysColumnWidth: 20,
     padding: 4,
     logger: console,
-    isTypescript: fs.existsSync('gulpfile.ts')
+    isTypescript: fs.existsSync('gulpfile.ts'),
+    emptyLineBetweenTasks: true
 };
 
 function rdeps(nodes) {
@@ -254,7 +255,9 @@ function print() {
             chalk.grey(JSON.stringify(deps))
         ));
 
-        OPTIONS.logger.log('');
+        if (OPTIONS.emptyLineBetweenTasks) {
+            OPTIONS.logger.log('');
+        }
     });
 }
 
