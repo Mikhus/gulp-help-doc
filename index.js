@@ -249,12 +249,12 @@ function print() {
             }
         });
 
-        if (OPTIONS.displayDependencies) {
-            (deps.length) && (OPTIONS.logger.log(
+        if (OPTIONS.displayDependencies && deps.length) {
+            OPTIONS.logger.log(
                 ' '.repeat(OPTIONS.keysColumnWidth) +
                 chalk.bold.gray('Depends: ') +
                 chalk.grey(JSON.stringify(deps))
-            ));
+            );
         }
 
         OPTIONS.logger.log('');
