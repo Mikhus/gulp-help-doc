@@ -51,7 +51,8 @@ var OPTIONS = {
     padding: 4,
     logger: console,
     isTypescript: fs.existsSync('gulpfile.ts'),
-    displayDependencies: true
+    displayDependencies: true,
+    emptyLineBetweenTasks: true
 };
 
 function rdeps(nodes) {
@@ -269,7 +270,9 @@ function print() {
             );
         }
 
-        OPTIONS.logger.log('');
+        if (OPTIONS.emptyLineBetweenTasks) {
+            OPTIONS.logger.log('');
+        }
     });
 }
 

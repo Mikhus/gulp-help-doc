@@ -151,6 +151,8 @@ Options are:
     to gulp-util or some other printing device if required.
   * **displayDependencies** - if set to `true` (default), prints the task
     dependencies below its help description
+  * **emptyLineBetweenTasks** - if set to `true` (default), prints an empty
+    line between tasks help descriptions
 
 Example of custom configuration: 
 
