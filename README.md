@@ -143,6 +143,8 @@ Options are:
   * **padding** - number of empty characters for left-padding of the output
   * **logger** - printing engine (by default is console). May be changed
     to gulp-util or some other printing device if required.
+  * **emptyLineBetweenTasks** - if set to `true` (default), prints an empty
+    line between tasks help descriptions
 
 Example of custom configuration: 
 
