@@ -115,10 +115,13 @@ function build(gulp) {
     var rxDoc = '\\/\\*\\*\\r?\n(((?!\\*\\/)[\\s\\S])*?)' +
         '@task\\s+\\{(.*)?\\}((?!\\*\\/)[\\s\\S])*?\\*\\/';
     var rxArgs = '@arg\\s+\\{(.*?)\\}(.*?)\\r?\\n';
+    var rxOrder = '@order\\s+\\{(\\d+)\\}(.*?)\\r?\\n';
     var globalRxDoc = new RegExp(rxDoc, 'g');
     var localRxDoc = new RegExp(rxDoc);
     var globalRxArgs = new RegExp(rxArgs, 'g');
     var localRxArgs = new RegExp(rxArgs);
+    var globalRxOrder = new RegExp(rxOrder, 'g');
+    var localRxOrder = new RegExp(rxOrder);
     var jsDoc  = source.match(globalRxDoc);
     var tasks = gulpTasks(gulp);
 
@@ -155,6 +158,14 @@ function build(gulp) {
                         .trim()
                 };
             });
+        reflection[name].order = (function () {
+            var orderParts = block.match(globalRxOrder);
+            if (orderParts) {
+                return +orderParts[0].match(localRxOrder)[1];
+            } else {
+                return Number.MAX_SAFE_INTEGER;
+            }
+        })();
     });
 }
 
@@ -199,6 +210,7 @@ function print() {
         return reflection[name].public;
     })
     .sort()
+    .sort(function(a, b) { return reflection[a].order - reflection[b].order; })
     .forEach(function (name) {
         var task = reflection[name];
         var deps = task.dep.filter(function (dep) {

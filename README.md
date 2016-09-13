@@ -48,6 +48,7 @@ gulp.task('default', ['help']);
  * description.
  *
  * @task {demo}
+ * @order {1}
  */
  gulp.task('demo', function() {});
 
@@ -119,6 +120,11 @@ Task description could be written in a free form before the `@task` tag
 declaration.
 
 If `@task` tag is omitted then the task will not appear in usage call.
+
+Optionally, you can use the `@order` tag to sort the tasks descriptions
+in the output. A task with `@order {1}` will appear before a task
+with `@order {2}`. All tasks without this tag will appear at the end
+of the list, sorted alphabetically.
 
 ## Restrictions
 
