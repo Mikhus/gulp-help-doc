@@ -36,7 +36,9 @@ var reflection = {};
  *     logger: {
  *        log: function
  *     },
- *     isTypescript: boolean
+ *     isTypescript: boolean,
+ *     displayDependencies: boolean,
+ *     emptyLineBetweenTasks: boolean
  * }} ConfigOptions
  */
 
