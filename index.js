@@ -126,7 +126,7 @@ function build(gulp) {
     var localRxArgs = new RegExp(rxArgs);
     var globalRxOrder = new RegExp(rxOrder, 'g');
     var localRxOrder = new RegExp(rxOrder);
-    var jsDoc  = source.match(globalRxDoc);
+    var jsDoc  = (source.match(globalRxDoc) || []);
     var tasks = gulpTasks(gulp);
 
     Object.keys(tasks).forEach(function (task) {
