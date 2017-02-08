@@ -1,6 +1,6 @@
 {
   "name": "gulp-help-doc",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Gulp available tasks usage information based on jsdoc-like notations",
   "main": "index.js",
   "scripts": {
