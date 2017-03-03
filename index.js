@@ -223,9 +223,9 @@ function print() {
         var text = ' '.repeat(OPTIONS.padding) +
             chalk.bold.green(task.name) +
             ' '.repeat(
-                OPTIONS.keysColumnWidth -
+                Math.max(1,OPTIONS.keysColumnWidth -
                 OPTIONS.padding -
-                task.name.length
+                task.name.length)
             );
         var chunks = chunk(task.desc, OPTIONS.lineWidth -
             OPTIONS.keysColumnWidth);
@@ -251,8 +251,8 @@ function print() {
             OPTIONS.logger.log(
                 ' '.repeat(OPTIONS.padding + 1) +
                 chalk.bold.cyan('--' + arg.name) +
-                ' '.repeat(OPTIONS.keysColumnWidth - OPTIONS.padding -
-                    arg.name.length - 3) +
+                ' '.repeat(Math.max(1,OPTIONS.keysColumnWidth - OPTIONS.padding -
+                    arg.name.length - 3)) +
                 chunks[i]
             );
 

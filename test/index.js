@@ -14,13 +14,14 @@ if (typeof glob.describe === 'undefined') {
  *
  * @task {demo}
  * @arg {env} environment
+ * @arg {something very long} very long
  */
 gulp.task('demo', function() {});
 
 // testing section
 
 describe('help', function() {
-    it('it should correctly parse task dock-blocks and produce valid output',
+    it('it should correctly parse task doc-blocks and produce valid output',
     function(done) {
         var logger = {
             output: '',
