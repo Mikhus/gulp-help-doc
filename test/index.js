@@ -15,6 +15,7 @@ if (typeof glob.describe === 'undefined') {
  * @task {demo}
  * @arg {env} environment
  * @arg {something very long} very long
+ * @group {Misc}
  */
 gulp.task('demo', function() {});
 
@@ -42,6 +43,7 @@ describe('help', function() {
 
             expect(output).to.match(/Usage:\sgulp\s\[task\]\s\[options\]\n/);
             expect(output).to.match(/Tasks:\n/);
+            expect(output).to.match(/Misc\n/);
             expect(output).to.match(/\s+demo\s+Demo task\n/);
             expect(output).to.match(/\s+--env\s+environment\n/);
 

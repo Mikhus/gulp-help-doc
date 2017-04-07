@@ -61,7 +61,7 @@ gulp.task('default', ['help']);
  *
  * @task {test}
  * @arg {argOne} first argument description which will appear in usage output
- * @arg {argTwo} second argument dsescription
+ * @arg {argTwo} second argument description
  * @arg {argThree} third argument description
  */
 gulp.task('test', ['demo'], function() {
@@ -102,10 +102,77 @@ Tasks:
                     to specify as much argument tags as required by the job done 
                     within this task. For example here we describe three arguments:
      --argOne       first argument description which will appear in usage output
-     --argTwo       second argument dsescription
+     --argTwo       second argument description
      --argThree     third argument description
                     Depends: ["demo"]
 ```
+
+Since version 1.1.0 it also supports tasks grouping using `@group` tag:
+
+```javascript
+var gulp = require('gulp');
+var usage = require('../index');
+
+/**
+ * Prints this help usage
+ *
+ * @task {help}
+ * @group {Misc}
+ * @order {21}
+ */
+gulp.task('help', function() { return usage(gulp); });
+
+/**
+ * Builds entire project
+ *
+ * @task {build}
+ * @group {Building tasks}
+ * @order {11}
+ */
+gulp.task('build', ['build:css', 'build:js'], function() {});
+
+/**
+ * Builds css bundle
+ *
+ * @task {build:css}
+ * @group {Building tasks}
+ * @order {12}
+ */
+gulp.task('build:css', function() {});
+
+/**
+ * Builds js bundle
+ *
+ * @task {build:js}
+ * @group {Building tasks}
+ * @order {13}
+ */
+gulp.task('build:js', function() {});
+
+gulp.task('default', ['help']);
+```
+
+The example above will output something like:
+
+```
+Usage: gulp [task] [options]
+Tasks:
+ Building tasks
+    build           Builds entire project
+                    Depends: ["build:css","build:js"]
+
+    build:css       Builds css bundle
+
+    build:js        Builds js bundle
+
+ Misc
+    help            Prints this help usage
+```
+
+When groups are enabled it will olso use @order tags for groups sorting. In this
+case sorting is done using minimal @order value assigned to a task element in
+the group. then inside a group it will arrange task elements by their specified
+@order.
 
 ## How it works?
 
@@ -124,7 +191,9 @@ If `@task` tag is omitted then the task will not appear in usage call.
 Optionally, you can use the `@order` tag to sort the tasks descriptions
 in the output. A task with `@order {1}` will appear before a task
 with `@order {2}`. All tasks without this tag will appear at the end
-of the list, sorted alphabetically.
+of the list, sorted alphabetically. Ig groups are enabled `@order` tags assigned
+to the tasks also influence on groups arrangement. task groups will be ordered
+by a minimal `@order` values found inside each group.
 
 ## Restrictions
 
@@ -147,6 +216,10 @@ Options are:
   * **keysColumnWidth** - max width of the column width tasks/args
     names (by default is 20 characters long)
   * **padding** - number of empty characters for left-padding of the output
+  * **groupPadding** - number of empty characters before group name output, 
+    by default is 1
+  * **defaultGroupName**: if group tag is not specified it will use specified
+    group name, by default this name is 'Common tasks'
   * **logger** - printing engine (by default is console). May be changed
     to gulp-util or some other printing device if required.
   * **displayDependencies** - if set to `true` (default), prints the task
