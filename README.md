@@ -169,9 +169,9 @@ Tasks:
     help            Prints this help usage
 ```
 
-When groups are enabled it will olso use @order tags for groups sorting. In this
+When groups are enabled it will also use @order tags for groups sorting. In this
 case sorting is done using minimal @order value assigned to a task element in
-the group. then inside a group it will arrange task elements by their specified
+the group. Then inside a group it will arrange task elements by their specified
 @order.
 
 ## How it works?
