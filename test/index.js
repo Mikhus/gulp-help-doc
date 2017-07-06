@@ -33,7 +33,6 @@ describe('help', function() {
 
         help(gulp, {
             logger: logger,
-            gulpfile: 'test/index.js'
         }).then(function() {
             // clean-up output from ANSI colors
             var output = logger.output.replace(
