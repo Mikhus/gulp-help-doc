@@ -229,6 +229,8 @@ Options are:
     dependencies below its help description
   * **emptyLineBetweenTasks** - if set to `true` (default), prints an empty
     line between tasks help descriptions
+  * **gulpfile** - full path to gulpfile containing jsDoc tags.  By default 
+    ignores any files in node_modules.  
 
 Example of custom configuration: 
 
