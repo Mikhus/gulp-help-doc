@@ -38,6 +38,7 @@ var reflection = {};
  *        log: function
  *     },
  *     isTypescript: boolean,
+ *     gulpfile: string,
  *     displayDependencies: boolean,
  *     emptyLineBetweenTasks: boolean,
  *     defaultGroupName: string
@@ -57,6 +58,7 @@ var OPTIONS = {
     groupColor: 'magenta',
     logger: console,
     isTypescript: fs.existsSync('gulpfile.ts'),
+    gulpfile: undefined,
     displayDependencies: true,
     emptyLineBetweenTasks: true,
     defaultGroupName: 'Common tasks'
@@ -116,6 +118,8 @@ function build(gulp) {
 
     var source = OPTIONS.isTypescript ?
         fs.readFileSync('gulpfile.ts').toString() :
+        OPTIONS.gulpfile ?
+            fs.readFileSync(OPTIONS.gulpfile).toString() :
         Object.keys(require.cache || {'gulpfile.js': ''}).map(function(file) {
             if (!/node_modules|\.json$/.test(file)) {
                 return fs.readFileSync(file).toString() + '\n';
