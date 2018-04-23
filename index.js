@@ -1,5 +1,5 @@
 /**
- * Implements self-documented gulp-file
+ * Implements self-documented gulpfile
  *
  * @author Mykhailo Stadnyk <mikhus@gmail.com>
  */
@@ -112,7 +112,7 @@ function gulpTasks(gulp) {
  * @access private
  */
 function build(gulp) {
-    // make sure we don't loose anything from required files
+    // make sure we don't lose anything from required files
     // @see https://github.com/Mikhus/gulp-help-doc/issues/2
     // currently this is not supported for typescript
 
@@ -125,19 +125,26 @@ function build(gulp) {
                 return fs.readFileSync(file).toString() + '\n';
             }
         }).join('');
+
     var rxDoc = '\\/\\*\\*\\r?\n(((?!\\*\\/)[\\s\\S])*?)' +
         '@task\\s+\\{(.*)?\\}((?!\\*\\/)[\\s\\S])*?\\*\\/';
+
     var rxArgs = '@arg\\s+\\{(.*?)\\}(.*?)\\r?\\n';
     var rxOrder = '@order\\s+\\{(\\d+)\\}(.*?)\\r?\\n';
     var rxGroup = '@group\\s+\\{(.*?)\\}(.*?)\\r?\\n';
+
     var globalRxDoc = new RegExp(rxDoc, 'g');
     var localRxDoc = new RegExp(rxDoc);
+
     var globalRxArgs = new RegExp(rxArgs, 'g');
     var localRxArgs = new RegExp(rxArgs);
+
     var globalRxOrder = new RegExp(rxOrder, 'g');
     var localRxOrder = new RegExp(rxOrder);
+
     var globalRxGroup = new RegExp(rxGroup, 'g');
     var localRxGroup = new RegExp(rxGroup);
+
     var jsDoc  = (source.match(globalRxDoc) || []);
     var tasks = gulpTasks(gulp);
 
@@ -356,15 +363,13 @@ function print() {
             }
         });
     });
-
-
 }
 
 /**
  * Prints usage help information for the given gulp
  * instance.
  * Usually it is used as a task within gulpfile.js in your project
- * Please, make sure all your comments are properly annotated
+ * Please make sure all your comments are properly annotated
  *
  * @examples
  * <caption>Typical usage:</caption>
